@@ -39,6 +39,8 @@ print(y)
 
 #question 5
 print("Question 5")
+print("Which variable is a free variable?")
+print("f")
 h <- function(x, y = NULL, d = 3L) {
   z <- cbind(x, d)
   if(!is.null(y))
@@ -51,3 +53,4 @@ h <- function(x, y = NULL, d = 3L) {
   g <- g + 10
   g
 }
+
