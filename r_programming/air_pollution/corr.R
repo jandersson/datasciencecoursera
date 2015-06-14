@@ -18,5 +18,22 @@ corr <- function(directory, threshold = 0) {
   
   ## Return a numeric vector of correlations
   ## NOTE: Do not round the result!
+  
+  cases <- complete(directory)
+  meets_threshold <- cases$nobs > threshold
+  filtered_cases <- cases[meets_threshold, ]
+  old.dir <- getwd()
+  setwd(directory)
+  corr <- vector("numeric", length=length(filtered_cases$id))
+  i <- 1
+  for(case in filtered_cases$id){
+    file_name <- convert_to_station_file(case)
+    data <- read.csv(file_name)
+    complete_cases <- complete.cases(data)
+    complete_data <- data[complete_cases, ]
+    corr[i] <- cor(complete_data$sulfate, complete_data$nitrate)
+    i <- i + 1
+  }
+  setwd(old.dir)
+  corr
 }
-
